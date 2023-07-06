@@ -23,11 +23,13 @@ codeunit 50100 "Customer Rewards Installation"
         // - Initial data setup for use
         SetDefaultCustomerRewardsExtMgtCodeunit();
         InsertDefaultRewardLevels();
+        InsertDefaultActivationCode();
         InitializeRewardsForExistingCustomers();
     end;
 
     local procedure HandleReinstall();
     begin
+        HandleFreshInstall();
         // Do work needed when reinstalling the same version of this extension back on this tenant.
         // Some possible usages:
         // - Service callback/telemetry indicating that extension was reinstalled
@@ -44,6 +46,16 @@ codeunit 50100 "Customer Rewards Installation"
         // Default Customer Rewards Ext. Mgt codeunit to use for handling events  
         CustomerRewardsMgtSetup."Cust. Rew. Ext. Mgt. Cod. ID" := Codeunit::"Customer Rewards Ext Mgt";
         CustomerRewardsMgtSetup.Insert();
+    end;
+
+    procedure InsertDefaultActivationCode()
+    var
+        ActivationCodes: Record "Activation Code Information";
+    begin
+        ActivationCodes.Init();
+        ActivationCodes.ActivationCode := 'asasasasasasas';
+        ActivationCodes."Date Activated" := Today;
+        ActivationCodes."Expiration Date" := CALCDATE('<1Y>', Today);
     end;
 
     procedure InsertDefaultRewardLevels()
