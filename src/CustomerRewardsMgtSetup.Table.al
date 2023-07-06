@@ -16,7 +16,7 @@ table 50102 "Customer Rewards Mgt. Setup"
             // ovo je spoljasnji kljuc i moram ga spojiti sa 
             // postojecim PK da bi odrzao integritet SK-a
 
-            // TableRelation = "CodeUnit Metadata".ID;
+            TableRelation = "CodeUnit Metadata".ID;
         }
     }
 
